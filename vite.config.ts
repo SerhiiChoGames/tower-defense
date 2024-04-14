@@ -11,5 +11,6 @@ export default defineConfig({
         fs: {
             cachedChecks: false,
         }
-    }
+    },
+    base: './tower-defense/'
 })

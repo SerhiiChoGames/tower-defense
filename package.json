@@ -1,21 +1,25 @@
 {
   "name": "epic-td",
   "description": "Open source game written with Phaser JS where you need to build towers to kill the monsters they will try to destroy your castle",
+  "repository": "https://github.com/SerhiiChoGames/tower-defense",
   "private": true,
+  "homepage": "https://serhiichogames.github.io/tower-defense",
+  "author": "SerhiiCho <serhiicho@protonmail.com>",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "yarn build && gh-pages -d dist"
   },
   "devDependencies": {
     "path": "^0.12.7",
     "typescript": "^5.2.2",
-    "vite": "^5.2.7"
+    "vite": "^5.2.7",
+    "gh-pages": "^6.1.1"
   },
   "dependencies": {
-    "gh-pages": "^6.1.1",
     "phaser": "^3.80.1"
   }
 }
