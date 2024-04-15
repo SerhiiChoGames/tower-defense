@@ -2,7 +2,7 @@
 
 ![Tower Defense Game](./src/assets/logo.png)
 
-Open source game written with Phaser JS where you need to build towers to kill the monsters they will try to destroy your castle
+Open source game written with Phaser JS where you need to build towers to kill the monsters they will try to destroy your castle.
 
 ## Installation
 
