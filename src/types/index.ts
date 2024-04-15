@@ -23,6 +23,7 @@ export type ImageKey
     | 'btnPressed'
     | 'copy'
     | 'logo'
+    | 'refresh'
 
 export type SpriteKey
     = 'zombieWalk'

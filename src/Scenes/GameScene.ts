@@ -1,6 +1,7 @@
 import { config, events } from '@/config'
 import dispatchEvent from '@/modules/dispatchEvent'
 import mapImage from '@/assets/map.png'
+import refreshButtonImage from '@/assets/refresh.png'
 import castleImage from '@/assets/castle.png'
 import Enemy from '@/Models/Enemy/Enemy'
 import ZombieEnemy from '@/Models/Enemy/ZombieEnemy'
@@ -37,6 +38,7 @@ export default class GameScene extends Phaser.Scene {
         this.load
             .image('map', mapImage)
             .image('castle', castleImage)
+            .image('refresh', refreshButtonImage)
 
         this.load
             .audio('actionMusic', actionMusic)
@@ -75,6 +77,7 @@ export default class GameScene extends Phaser.Scene {
         this.placeholders = Placeholder.spawnAll(this)
         this.enemies = ZombieEnemy.spawn(10, this)
 
+        this.placeRefreshButton()
         this.handleButtonClicks()
         this.handlePlaceholderClicks()
         this.listenForGoldEvents()
@@ -95,6 +98,26 @@ export default class GameScene extends Phaser.Scene {
                 this.selectedTower = btn instanceof ArrowTowerButton ? 'arrow' : 'magic'
                 dispatchEvent(events.togglePlaceholderVisibility)
             })
+        })
+    }
+
+    private placeRefreshButton(): void {
+        const btn = this.add.image(config.width - 250, 50, 'refresh')
+        btn.setInteractive()
+
+        btn.on('pointerdown', () => {
+            this.scene.restart()
+            this.sound.stopAll()
+        })
+
+        btn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 0.3 })
+            btn.setScale(1.1)
+        })
+
+        btn.on('pointerout', () => {
+            this.sound.play('buttonHover', { volume: 0.3 })
+            btn.setScale(1)
         })
     }
 
