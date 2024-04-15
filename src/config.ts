@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import GameScene from '@/Scenes/GameScene'
+import StartScene from '@/Scenes/StartScene'
 
 export const config = {
     width: 1920,
@@ -16,6 +17,7 @@ export const config = {
     },
 
     scene: [
+        StartScene,
         GameScene,
     ]
 }

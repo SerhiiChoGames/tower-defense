@@ -6,6 +6,9 @@ export type SoundKey
     | 'buildingHitSound'
     | 'magicFlySound'
     | 'magicHitSound'
+    | 'buttonClick'
+    | 'menu'
+    | 'buttonHover'
 
 export type ImageKey
     = 'arrowTowerButton'
@@ -15,6 +18,11 @@ export type ImageKey
     | 'arrowProjectile'
     | 'magicBallProjectile'
     | 'magicTowerButton'
+    | 'bg'
+    | 'btn'
+    | 'btnPressed'
+    | 'copy'
+    | 'logo'
 
 export type SpriteKey
     = 'zombieWalk'

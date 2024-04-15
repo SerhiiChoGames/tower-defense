@@ -56,6 +56,8 @@ export default class GameScene extends Phaser.Scene {
     }
 
     public create(): void {
+        this.sound.stopAll()
+
         this.add.image(0, 0, 'map')
             .setOrigin(0, 0)
             .setDisplaySize(config.width, config.height)
