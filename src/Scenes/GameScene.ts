@@ -1,4 +1,4 @@
-import { config, events, scene } from '@/config'
+import { events, scene, WIDTH, HEIGHT } from '@/config'
 import dispatchEvent from '@/modules/dispatchEvent'
 import Enemy from '@/Models/Enemy/Enemy'
 import ZombieEnemy from '@/Models/Enemy/ZombieEnemy'
@@ -17,16 +17,16 @@ export default class GameScene extends Phaser.Scene {
     private enemies: Enemy[] = []
     private towers: Tower[] = []
     private buttons: Button[] = []
-    private selectedTower: 'arrow' | 'magic' | undefined
+    private selectedTower?: 'arrow' | 'magic'
     private placeholders: Placeholder[] = []
-    private goldText: Phaser.GameObjects.Text | undefined
+    private goldText?: Phaser.GameObjects.Text
     private gold: number = START_GOLD
 
     public constructor() {
         super(scene.GameScene)
     }
 
-    public preload(): void {
+    public init(): void {
         this.enemies = []
         this.towers = []
         this.buttons = []
@@ -34,49 +34,6 @@ export default class GameScene extends Phaser.Scene {
         this.placeholders = []
         this.goldText = undefined
         this.gold = START_GOLD
-
-        this.load
-            .image('map', 'assets/map.png')
-            .image('castle', 'assets/castle.png')
-            .image('refresh', 'assets/refresh.png')
-            .image('arrowTowerButton', 'assets/towers/arrow-icon.png')
-            .image('magicTowerButton', 'assets/towers/magic-icon.png')
-            .image('arrowProjectile', 'assets/towers/projectiles/arrow.png')
-            .image('magicBallProjectile', 'assets/towers/projectiles/magic-ball.png')
-            .image('spawner', 'assets/towers/tower-placeholder.png')
-
-        this.load
-            .audio('actionMusic', 'assets/sounds/music/action.mp3')
-            .audio('arrowFlySound', 'assets/sounds/arrow-fly.mp3')
-            .audio('arrowHitSound', 'assets/sounds/arrow-hit.mp3')
-            .audio('magicFlySound', 'assets/sounds/magic-fly.mp3')
-            .audio('magicHitSound', 'assets/sounds/magic-hit.mp3')
-            .audio('buildingCompletedSound', 'assets/sounds/building-completed.mp3')
-            .audio('buildingHitSound', 'assets/sounds/building-hit.mp3')
-
-        this.load
-            .spritesheet('arrowTowerIdle', 'assets/towers/arrow-tower.png', {
-                frameWidth: 125,
-                frameHeight: 150,
-            })
-            .spritesheet('magicTowerIdle', 'assets/towers/magic-tower.png', {
-                frameWidth: 125,
-                frameHeight: 150,
-            })
-            .spritesheet(ZombieEnemy.spriteKeys.walk, 'assets/enemies/1.zombie/walk.png', {
-                frameWidth: 107.5,
-                frameHeight: 130,
-            })
-
-            .spritesheet(ZombieEnemy.spriteKeys.die, 'assets/enemies/1.zombie/die.png', {
-                frameWidth: 165.5,
-                frameHeight: 130,
-            })
-
-            .spritesheet(ZombieEnemy.spriteKeys.attack, 'assets/enemies/1.zombie/attack.png', {
-                frameWidth: 104,
-                frameHeight: 130,
-            })
     }
 
     public create(): void {
@@ -84,7 +41,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'map')
             .setOrigin(0, 0)
-            .setDisplaySize(config.width, config.height)
+            .setDisplaySize(WIDTH, HEIGHT)
 
         this.sound.play('actionMusic', { loop: true, volume: 0.5 })
 
@@ -124,7 +81,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private placeRefreshButton(): void {
-        const btn = this.add.image(config.width - 250, 50, 'refresh')
+        const btn = this.add.image(WIDTH - 250, 50, 'refresh')
         btn.setInteractive()
 
         btn.on('pointerdown', () => {

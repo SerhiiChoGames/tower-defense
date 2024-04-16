@@ -2,10 +2,14 @@ import type { SceneKey } from '@/types'
 import Phaser from 'phaser'
 import GameScene from '@/Scenes/GameScene'
 import StartScene from '@/Scenes/StartScene'
+import LoadingScene from '@/Scenes/LoadingScene'
 
-export const config = {
-    width: 1920,
-    height: 1080,
+export const WIDTH = 1920
+export const HEIGHT = 1080
+
+export const config: Phaser.Types.Core.GameConfig = {
+    width: WIDTH,
+    height: HEIGHT,
     type: Phaser.AUTO,
 
     scale: {
@@ -18,6 +22,7 @@ export const config = {
     },
 
     scene: [
+        LoadingScene,
         StartScene,
         GameScene,
     ]

@@ -1,42 +1,28 @@
 import Phaser from 'phaser'
-import { config, scene } from '@/config'
+import { scene, WIDTH, HEIGHT } from '@/config'
 
 export default class StartScene extends Phaser.Scene {
     public constructor() {
         super(scene.StartScene)
     }
 
-    public preload(): void {
-        this.load
-            .image('bg', 'assets/start-screen.png')
-            .image('btn', 'assets/play-button.png')
-            .image('btnPressed', 'assets/play-button-pressed.png')
-            .image('copy', 'assets/copyright.png')
-            .image('logo', 'assets/logo.png')
-
-        this.load
-            .audio('buttonClick', 'assets/sounds/button-click.mp3')
-            .audio('menu', 'assets/sounds/music/menu.mp3')
-            .audio('buttonHover', 'assets/sounds/button-hover.mp3')
-    }
-
     public create(): void {
         this.add.image(0, 0, 'bg')
             .setOrigin(0, 0)
-            .setDisplaySize(config.width, config.height)
+            .setDisplaySize(WIDTH, HEIGHT)
 
         this.sound.play('menu', { volume: .2, loop: true })
 
-        const logoHeight = config.height / 2 - 250
-        const logo = this.add.image(config.width / 2, logoHeight, 'logo')
+        const logoHeight = HEIGHT / 2 - 250
+        const logo = this.add.image(WIDTH / 2, logoHeight, 'logo')
 
-        const buttonHeight = config.height / 2 + 100
-        const button = this.add.image(config.width / 2, buttonHeight, 'btn')
+        const buttonHeight = HEIGHT / 2 + 100
+        const button = this.add.image(WIDTH / 2, buttonHeight, 'btn')
         button.setInteractive()
 
-        const copyright = this.add.image(config.width - 110, config.height - 70, 'copy')
+        const copyright = this.add.image(WIDTH - 110, HEIGHT - 70, 'copy')
 
-        this.animateJump(copyright, config.height - 80)
+        this.animateJump(copyright, HEIGHT - 80)
         this.animateJump(logo, logoHeight + 5)
         this.animateJump(button, buttonHeight - 5)
 
