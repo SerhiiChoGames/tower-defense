@@ -19,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
     private placeholders: Placeholder[] = []
     private goldText?: Phaser.GameObjects.Text
     private gold: number = START_GOLD
+    private refreshButton?: Phaser.GameObjects.Image
 
     public constructor() {
         super(scene.GameScene)
@@ -79,21 +80,33 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private placeRefreshButton(): void {
-        const btn = this.add.image(WIDTH - 250, 50, 'refresh')
-        btn.setInteractive()
+        this.refreshButton = this.add.image(WIDTH - 250, 50, 'refresh')
 
-        btn.on('pointerdown', () => this.restartScene())
+        this.refreshButton.setInteractive()
 
-        btn.on('pointerover', () => {
-            this.sound.play('buttonHover', { volume: 0.3 })
-            btn.setScale(1.1)
-        })
-
-        btn.on('pointerout', () => {
-            this.sound.play('buttonHover', { volume: 0.3 })
-            btn.setScale(1)
-        })
+        this.refreshButton.on('pointerdown', this.restartScene, this)
+        this.refreshButton.on('pointerover', this.scaleUpRefreshButton, this)
+        this.refreshButton.on('pointerout', this.scaleDownRefreshButton, this)
     }
+
+    private scaleUpRefreshButton(): void {
+        if (!this.refreshButton) {
+            return
+        }
+
+        this.sound.play('buttonHover', { volume: 0.3 })
+        this.refreshButton.setScale(1.1)
+    }
+
+    private scaleDownRefreshButton(): void {
+        if (!this.refreshButton) {
+            return
+        }
+
+        this.sound.play('buttonHover', { volume: 0.3 })
+        this.refreshButton.setScale(1)
+    }
+
 
     private restartScene(): void {
         this.sound.stopAll()
@@ -152,7 +165,15 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private listenForGoldEvents(): void {
-        this.events.on(events.enemyKilled, (amount: number) => this.gold += amount)
-        this.events.on(events.towerIsPlaced, (price: number) => this.gold -= price)
+        this.events.on(events.enemyKilled, this.increaseGold, this)
+        this.events.on(events.towerIsPlaced, this.decreaseGold, this)
+    }
+
+    private increaseGold(amount: number): void {
+        this.gold += amount
+    }
+
+    private decreaseGold(amount: number): void {
+        this.gold -= amount
     }
 }
