@@ -1,5 +1,4 @@
 import { events, scene, WIDTH, HEIGHT } from '@/config'
-import dispatchEvent from '@/modules/dispatchEvent'
 import Enemy from '@/Models/Enemy/Enemy'
 import ZombieEnemy from '@/Models/Enemy/ZombieEnemy'
 import ArrowTower from '@/Models/Tower/ArrowTower'
@@ -7,7 +6,6 @@ import Tower from '@/Models/Tower/Tower'
 import Button from '@/Models/Buttons/Button'
 import ArrowTowerButton from '@/Models/Buttons/ArrowTowerButton'
 import Placeholder from '@/Models/Placeholder'
-import listenEvent from '@/modules/listenEvent'
 import MagicTowerButton from '@/Models/Buttons/MagicTowerButton'
 import MagicTower from '@/Models/Tower/MagicTower'
 
@@ -75,7 +73,7 @@ export default class GameScene extends Phaser.Scene {
         this.buttons.forEach(btn => {
             btn.onClick(() => {
                 this.selectedTower = btn instanceof ArrowTowerButton ? 'arrow' : 'magic'
-                dispatchEvent(events.togglePlaceholderVisibility)
+                this.events.emit(events.togglePlaceholderVisibility)
             })
         })
     }
@@ -84,10 +82,7 @@ export default class GameScene extends Phaser.Scene {
         const btn = this.add.image(WIDTH - 250, 50, 'refresh')
         btn.setInteractive()
 
-        btn.on('pointerdown', () => {
-            this.scene.restart()
-            this.sound.stopAll()
-        })
+        btn.on('pointerdown', () => this.restartScene())
 
         btn.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 0.3 })
@@ -98,6 +93,19 @@ export default class GameScene extends Phaser.Scene {
             this.sound.play('buttonHover', { volume: 0.3 })
             btn.setScale(1)
         })
+    }
+
+    private restartScene(): void {
+        this.sound.stopAll()
+        this.removeAllEvents()
+        this.scene.restart()
+    }
+
+    private removeAllEvents(): void {
+        for (const event in events) {
+            const key = event as keyof typeof events
+            this.events.off(events[key])
+        }
     }
 
     private handlePlaceholderClicks(): void {
@@ -127,8 +135,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.towers.push(tower)
 
-        dispatchEvent(events.togglePlaceholderVisibility)
-        dispatchEvent(events.towerIsPlaced, tower.price)
+        this.events.emit(events.togglePlaceholderVisibility)
+        this.events.emit(events.towerIsPlaced, tower.price)
 
         placeholder.destroy()
     }
@@ -144,7 +152,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private listenForGoldEvents(): void {
-        listenEvent(events.enemyKilled, (amount: number) => this.gold += amount)
-        listenEvent(events.towerIsPlaced, (price: number) => this.gold -= price)
+        this.events.on(events.enemyKilled, (amount: number) => this.gold += amount)
+        this.events.on(events.towerIsPlaced, (price: number) => this.gold -= price)
     }
 }

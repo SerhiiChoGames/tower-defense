@@ -1,17 +1,18 @@
 import Phaser from 'phaser'
 import placeholderPoints from '@/modules/placeholderPoints'
-import listenEvent from '@/modules/listenEvent'
 import { events } from '@/config'
 import GameScene from '@/Scenes/GameScene'
 
 const imageKey = 'spawner' as const
 
-export default class Placeholder {
+export default class Placeholder extends Phaser.GameObjects.Image {
     public constructor(
         public readonly image: Phaser.GameObjects.Image,
         public readonly x: number,
         public readonly y: number,
-    ) { }
+    ) {
+        super(image.scene, x, y, imageKey)
+    }
 
     public static spawn(scene: GameScene, x: number, y: number): Placeholder {
         const image = scene.add.image(x, y, imageKey)
@@ -45,7 +46,7 @@ export default class Placeholder {
         this.image.setInteractive()
         this.image.setVisible(false)
 
-        listenEvent(events.togglePlaceholderVisibility, () => {
+        this.scene.events.on(events.togglePlaceholderVisibility, () => {
             this.image.setVisible(!this.image.visible)
         })
     }
