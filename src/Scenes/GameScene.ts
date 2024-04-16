@@ -21,6 +21,8 @@ import listenEvent from '@/modules/listenEvent'
 import MagicTowerButton from '@/Models/Buttons/MagicTowerButton'
 import MagicTower from '@/Models/Tower/MagicTower'
 
+const START_GOLD = 30
+
 export default class GameScene extends Phaser.Scene {
     private enemies: Enemy[] = []
     private towers: Tower[] = []
@@ -28,13 +30,21 @@ export default class GameScene extends Phaser.Scene {
     private selectedTower: 'arrow' | 'magic' | undefined
     private placeholders: Placeholder[] = []
     private goldText: Phaser.GameObjects.Text | undefined
-    private gold: number = 30
+    private gold: number = START_GOLD
 
     public constructor() {
         super('GameScene')
     }
 
     public preload(): void {
+        this.enemies = []
+        this.towers = []
+        this.buttons = []
+        this.selectedTower = undefined
+        this.placeholders = []
+        this.goldText = undefined
+        this.gold = START_GOLD
+
         this.load
             .image('map', mapImage)
             .image('castle', castleImage)
