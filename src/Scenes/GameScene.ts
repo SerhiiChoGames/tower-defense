@@ -56,7 +56,7 @@ export default class GameScene extends Phaser.Scene {
         this.enemies = ZombieEnemy.spawn(10, this)
 
         this.placeRefreshButton()
-        this.handleButtonClicks()
+        this.addClickEventForTowerButtons()
         this.handlePlaceholderClicks()
         this.listenForGoldEvents()
         this.displayGold()
@@ -70,13 +70,15 @@ export default class GameScene extends Phaser.Scene {
         this.buttons.forEach(button => button.update())
     }
 
-    private handleButtonClicks(): void {
+    private addClickEventForTowerButtons(): void {
         this.buttons.forEach(btn => {
-            btn.onClick(() => {
-                this.selectedTower = btn instanceof ArrowTowerButton ? 'arrow' : 'magic'
-                this.events.emit(events.togglePlaceholderVisibility)
-            })
+            btn.onClick(() => this.handleTowerButtonClickEvent(btn))
         })
+    }
+
+    private handleTowerButtonClickEvent(btn: Button): void {
+        this.selectedTower = btn instanceof ArrowTowerButton ? 'arrow' : 'magic'
+        this.events.emit(events.togglePlaceholderVisibility)
     }
 
     private placeRefreshButton(): void {
