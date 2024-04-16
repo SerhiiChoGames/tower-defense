@@ -11,8 +11,9 @@ export default class LoadingScene extends Phaser.Scene {
     public preload() {
         this.createLoadingScreen()
 
+        this.load.setPath('assets')
+
         this.load
-            .setPath('assets')
             .image('bg', 'start-screen.png')
             .image('btn', 'play-button.png')
             .image('btnPressed', 'play-button-pressed.png')
@@ -26,8 +27,7 @@ export default class LoadingScene extends Phaser.Scene {
             .image('arrowProjectile', 'towers/projectiles/arrow.png')
             .image('magicBallProjectile', 'towers/projectiles/magic-ball.png')
             .image('spawner', 'towers/tower-placeholder.png')
-
-        this.load
+            // Load audio
             .audio('buttonClick', 'sounds/button-click.mp3')
             .audio('menu', 'sounds/music/menu.mp3')
             .audio('buttonHover', 'sounds/button-hover.mp3')
@@ -38,8 +38,7 @@ export default class LoadingScene extends Phaser.Scene {
             .audio('magicHitSound', 'sounds/magic-hit.mp3')
             .audio('buildingCompletedSound', 'sounds/building-completed.mp3')
             .audio('buildingHitSound', 'sounds/building-hit.mp3')
-
-        this.load
+            // Load spritesheets
             .spritesheet('arrowTowerIdle', 'towers/arrow-tower.png', {
                 frameWidth: 125,
                 frameHeight: 150,
