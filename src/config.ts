@@ -1,3 +1,4 @@
+import type { SceneKey } from '@/types'
 import Phaser from 'phaser'
 import GameScene from '@/Scenes/GameScene'
 import StartScene from '@/Scenes/StartScene'
@@ -26,4 +27,10 @@ export const events = {
     togglePlaceholderVisibility: 'toggleplaceholdervisibility',
     towerIsPlaced: 'towerisplaced',
     enemyKilled: 'enemykilled',
+}
+
+export const scene: Record<SceneKey, SceneKey> = {
+    StartScene: 'StartScene',
+    GameScene: 'GameScene',
+    LoadingScene: 'LoadingScene',
 }

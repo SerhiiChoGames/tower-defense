@@ -1,6 +1,5 @@
 import Tower from '@/Models/Tower/Tower'
 import Enemy from '@/Models/Enemy/Enemy'
-import magicTowerIdle from '@/assets/towers/magic-tower.png'
 import MagicBallProjectile from '@/Models/Projectiles/MagicBallProjectile'
 import GameScene from '@/Scenes/GameScene'
 
@@ -27,15 +26,6 @@ export default class MagicTower extends Tower {
             MagicTower.range,
             MagicTower.price,
         )
-    }
-
-    public static preload(scene: GameScene): void {
-        scene.load.spritesheet(spriteKey, magicTowerIdle, {
-            frameWidth: 125,
-            frameHeight: 150,
-        })
-
-        MagicBallProjectile.preload(scene)
     }
 
     public static spawn(scene: GameScene, x: number, y: number, enemies: Enemy[]): MagicTower {

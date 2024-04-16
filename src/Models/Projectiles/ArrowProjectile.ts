@@ -1,6 +1,5 @@
 import Projectile from '@/Models/Projectiles/Projectile'
 import GameScene from '@/Scenes/GameScene'
-import arrowImage from '@/assets/towers/projectiles/arrow.png'
 
 const imageKey = 'arrowProjectile' as const
 
@@ -19,10 +18,6 @@ export default class ArrowProjectile extends Projectile {
             'arrowFlySound',
             'arrowHitSound',
         )
-    }
-
-    public static preload(scene: GameScene): void {
-        scene.load.image(imageKey, arrowImage)
     }
 
     public static spawn(scene: GameScene, x: number, y: number): ArrowProjectile {

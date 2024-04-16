@@ -1,8 +1,5 @@
-import { config, events } from '@/config'
+import { config, events, scene } from '@/config'
 import dispatchEvent from '@/modules/dispatchEvent'
-import mapImage from '@/assets/map.png'
-import refreshButtonImage from '@/assets/refresh.png'
-import castleImage from '@/assets/castle.png'
 import Enemy from '@/Models/Enemy/Enemy'
 import ZombieEnemy from '@/Models/Enemy/ZombieEnemy'
 import ArrowTower from '@/Models/Tower/ArrowTower'
@@ -10,13 +7,6 @@ import Tower from '@/Models/Tower/Tower'
 import Button from '@/Models/Buttons/Button'
 import ArrowTowerButton from '@/Models/Buttons/ArrowTowerButton'
 import Placeholder from '@/Models/Placeholder'
-import actionMusic from '@/assets/sounds/music/action.mp3'
-import arrowFlySound from '@/assets/sounds/arrow-fly.mp3'
-import arrowHitSound from '@/assets/sounds/arrow-hit.mp3'
-import magicFlySound from '@/assets/sounds/magic-fly.mp3'
-import magicHitSound from '@/assets/sounds/magic-hit.mp3'
-import buildingHitSound from '@/assets/sounds/building-hit.mp3'
-import buildingCompletedSound from '@/assets/sounds/building-completed.mp3'
 import listenEvent from '@/modules/listenEvent'
 import MagicTowerButton from '@/Models/Buttons/MagicTowerButton'
 import MagicTower from '@/Models/Tower/MagicTower'
@@ -33,7 +23,7 @@ export default class GameScene extends Phaser.Scene {
     private gold: number = START_GOLD
 
     public constructor() {
-        super('GameScene')
+        super(scene.GameScene)
     }
 
     public preload(): void {
@@ -46,25 +36,47 @@ export default class GameScene extends Phaser.Scene {
         this.gold = START_GOLD
 
         this.load
-            .image('map', mapImage)
-            .image('castle', castleImage)
-            .image('refresh', refreshButtonImage)
+            .image('map', 'assets/map.png')
+            .image('castle', 'assets/castle.png')
+            .image('refresh', 'assets/refresh.png')
+            .image('arrowTowerButton', 'assets/towers/arrow-icon.png')
+            .image('magicTowerButton', 'assets/towers/magic-icon.png')
+            .image('arrowProjectile', 'assets/towers/projectiles/arrow.png')
+            .image('magicBallProjectile', 'assets/towers/projectiles/magic-ball.png')
+            .image('spawner', 'assets/towers/tower-placeholder.png')
 
         this.load
-            .audio('actionMusic', actionMusic)
-            .audio('arrowFlySound', arrowFlySound)
-            .audio('arrowHitSound', arrowHitSound)
-            .audio('magicFlySound', magicFlySound)
-            .audio('magicHitSound', magicHitSound)
-            .audio('buildingCompletedSound', buildingCompletedSound)
-            .audio('buildingHitSound', buildingHitSound)
+            .audio('actionMusic', 'assets/sounds/music/action.mp3')
+            .audio('arrowFlySound', 'assets/sounds/arrow-fly.mp3')
+            .audio('arrowHitSound', 'assets/sounds/arrow-hit.mp3')
+            .audio('magicFlySound', 'assets/sounds/magic-fly.mp3')
+            .audio('magicHitSound', 'assets/sounds/magic-hit.mp3')
+            .audio('buildingCompletedSound', 'assets/sounds/building-completed.mp3')
+            .audio('buildingHitSound', 'assets/sounds/building-hit.mp3')
 
-        ArrowTowerButton.preload(this)
-        MagicTowerButton.preload(this)
-        ArrowTower.preload(this)
-        MagicTower.preload(this)
-        ZombieEnemy.preload(this)
-        Placeholder.preload(this)
+        this.load
+            .spritesheet('arrowTowerIdle', 'assets/towers/arrow-tower.png', {
+                frameWidth: 125,
+                frameHeight: 150,
+            })
+            .spritesheet('magicTowerIdle', 'assets/towers/magic-tower.png', {
+                frameWidth: 125,
+                frameHeight: 150,
+            })
+            .spritesheet(ZombieEnemy.spriteKeys.walk, 'assets/enemies/1.zombie/walk.png', {
+                frameWidth: 107.5,
+                frameHeight: 130,
+            })
+
+            .spritesheet(ZombieEnemy.spriteKeys.die, 'assets/enemies/1.zombie/die.png', {
+                frameWidth: 165.5,
+                frameHeight: 130,
+            })
+
+            .spritesheet(ZombieEnemy.spriteKeys.attack, 'assets/enemies/1.zombie/attack.png', {
+                frameWidth: 104,
+                frameHeight: 130,
+            })
     }
 
     public create(): void {

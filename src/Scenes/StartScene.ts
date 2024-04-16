@@ -1,29 +1,23 @@
 import Phaser from 'phaser'
-import { config } from '@/config'
-import startScreenImage from '@/assets/start-screen.png'
-import buttonImage from '@/assets/play-button.png'
-import pressedButtonImage from '@/assets/play-button-pressed.png'
-import copyrightImage from '@/assets/copyright.png'
-import logoImage from '@/assets/logo.png'
-import buttonClickSound from '@/assets/sounds/button-click.mp3'
-import menuSound from '@/assets/sounds/music/menu.mp3'
-import buttonHoverSound from '@/assets/sounds/button-hover.mp3'
+import { config, scene } from '@/config'
 
 export default class StartScene extends Phaser.Scene {
     public constructor() {
-        super('StartScene')
+        super(scene.StartScene)
     }
 
     public preload(): void {
         this.load
-            .image('bg', startScreenImage)
-            .image('btn', buttonImage)
-            .image('btnPressed', pressedButtonImage)
-            .image('copy', copyrightImage)
-            .image('logo', logoImage)
-            .audio('buttonClick', buttonClickSound)
-            .audio('menu', menuSound)
-            .audio('buttonHover', buttonHoverSound)
+            .image('bg', 'assets/start-screen.png')
+            .image('btn', 'assets/play-button.png')
+            .image('btnPressed', 'assets/play-button-pressed.png')
+            .image('copy', 'assets/copyright.png')
+            .image('logo', 'assets/logo.png')
+
+        this.load
+            .audio('buttonClick', 'assets/sounds/button-click.mp3')
+            .audio('menu', 'assets/sounds/music/menu.mp3')
+            .audio('buttonHover', 'assets/sounds/button-hover.mp3')
     }
 
     public create(): void {
@@ -74,7 +68,7 @@ export default class StartScene extends Phaser.Scene {
 
         btn.on('pointerdown', () => {
             this.sound.play('buttonClick', { volume: 0.5 })
-            this.scene.start('GameScene')
+            this.scene.start(scene.GameScene)
         })
     }
 }

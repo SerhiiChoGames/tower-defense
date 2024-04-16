@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import placeholderImage from '@/assets/towers/tower-placeholder.png'
 import placeholderPoints from '@/modules/placeholderPoints'
 import listenEvent from '@/modules/listenEvent'
 import { events } from '@/config'
@@ -13,10 +12,6 @@ export default class Placeholder {
         public readonly x: number,
         public readonly y: number,
     ) { }
-
-    public static preload(scene: GameScene): void {
-        scene.load.image(imageKey, placeholderImage)
-    }
 
     public static spawn(scene: GameScene, x: number, y: number): Placeholder {
         const image = scene.add.image(x, y, imageKey)

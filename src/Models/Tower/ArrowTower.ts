@@ -1,6 +1,5 @@
 import Tower from '@/Models/Tower/Tower'
 import Enemy from '@/Models/Enemy/Enemy'
-import arrowTowerIdle from '@/assets/towers/arrow-tower.png'
 import ArrowProjectile from '@/Models/Projectiles/ArrowProjectile'
 import GameScene from '@/Scenes/GameScene'
 
@@ -27,15 +26,6 @@ export default class ArrowTower extends Tower {
             ArrowTower.range,
             ArrowTower.price,
         )
-    }
-
-    public static preload(scene: GameScene): void {
-        scene.load.spritesheet(spriteKey, arrowTowerIdle, {
-            frameWidth: 125,
-            frameHeight: 150,
-        })
-
-        ArrowProjectile.preload(scene)
     }
 
     public static spawn(scene: GameScene, x: number, y: number, enemies: Enemy[]): ArrowTower {

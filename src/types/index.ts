@@ -43,3 +43,8 @@ export type EnemyAnimationKeys = {
     die: 'enemyDie',
     attack: 'enemyAttack',
 }
+
+export type SceneKey =
+    | 'GameScene'
+    | 'StartScene'
+    | 'LoadingScene'
