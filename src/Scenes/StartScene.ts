@@ -19,6 +19,7 @@ export default class StartScene extends Phaser.Scene {
         const buttonHeight = HEIGHT / 2 + 100
         const button = this.add.image(WIDTH / 2, buttonHeight, 'btn')
         button.setInteractive()
+        button.setScale(0.8)
 
         const copyright = this.add.image(WIDTH - 110, HEIGHT - 70, 'copy')
 
