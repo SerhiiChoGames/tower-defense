@@ -1,6 +1,6 @@
 # Tower Defense Game
 
-![Tower Defense Game](./src/assets/logo.png)
+![Tower Defense Game](./src/public/assets/logo.png)
 
 Open source game written with Phaser JS where you need to build towers to kill the monsters they will try to destroy your castle.
 
@@ -15,6 +15,6 @@ The project is written with Phaser JS and Vite. To run the project locally, foll
 
 ## License
 
-The Textwire project is licensed under the [MIT License](https://github.com/SerhiiChoGames/tower-defense/blob/main/LICENSE)
+The Textwire project is licensed under the [MIT License](https://github.com/SerhiiChoGames/tower-defense/blob/master/LICENSE)
 
 > The game is not finished yet, but you can play it [here](https://serhiichogames.github.io/tower-defense/)
