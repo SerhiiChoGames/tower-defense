@@ -1,5 +1,7 @@
 # Tower Defense Game
 
+[![Build and Deploy](https://github.com/SerhiiChoGames/tower-defense/actions/workflows/deploy.yml/badge.svg)](https://github.com/SerhiiChoGames/tower-defense/actions/workflows/deploy.yml)
+
 ![Tower Defense Game](./public/assets/logo.png)
 
 Open source game written with Phaser JS where you need to build towers to kill the monsters they will try to destroy your castle.
