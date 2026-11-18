@@ -1,14 +1,12 @@
 name: tower-defense-game
 
 services:
-    app:
-        image: tower-defense-game
-        container_name: tower-defense-game
-        build:
-            context: .
-            dockerfile: Containerfile
-        volumes:
-            - .:/app:z
-            - /app/node_modules
-        ports:
-            - 3000:5173
+  app:
+    image: tower-defense-game
+    container_name: tower-defense-game
+    build: .
+    volumes:
+      - .:/app:z
+      - /app/node_modules
+    ports:
+      - 3000:5173
