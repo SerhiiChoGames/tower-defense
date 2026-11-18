@@ -8,8 +8,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: podman
-    container: docker.io/library/node:26
+    runs-on: ubuntu-latest
     name: Build and deploy
 
     steps:
@@ -27,7 +26,6 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: https://github.com/JamesIves/github-pages-deploy-action@v4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
-          branch: pages
