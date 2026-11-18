@@ -10,6 +10,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     name: Build and deploy
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout 🛎️
