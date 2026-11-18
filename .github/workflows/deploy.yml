@@ -12,11 +12,6 @@ jobs:
     name: Build and deploy
 
     steps:
-      - name: Install deps
-        run: |
-          apt-get update
-          apt-get install -y rsync
-
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
